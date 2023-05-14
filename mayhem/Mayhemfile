@@ -1,0 +1,7 @@
+image: ruby
+duration: 90
+project: mayhem-examples
+target: crashing_test_harness
+cmds:
+  - cmd: /AFL/afl-fuzz -m 1000 -i /afl-ruby/example/work/input -o /afl-ruby/test/output  -- ruby /afl-ruby/test/lib/crashing_test_harness.rb
+    afl: true

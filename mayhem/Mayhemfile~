@@ -1,0 +1,7 @@
+image: <DOCKERHUB_USERNAME>/c-afl-gcc:latest
+duration: 90
+project: mayhem-examples
+target: c-afl-gcc
+cmds:
+  - cmd: /mayhemit @@
+    afl: true
