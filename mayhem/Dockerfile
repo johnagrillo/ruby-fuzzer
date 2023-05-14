@@ -24,8 +24,10 @@ RUN git clone https://github.com/richo/afl-ruby.git && \
 ADD /AFL /AFL
 RUN cd AFL && make
 
-ENTRYPOINT []
-CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output", "--" ,"ruby", "/afl-ruby/test/lib/crashing_test_harness.rb"]
+#ENTRYPOINT ["afl-fuzz", "-i", "/testsuite", "-o", "/out"]
+
+ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output"]
+CMD ["ruby", "/afl-ruby/test/lib/crashing_test_harness.rb", "@@"]
 
 
 	
