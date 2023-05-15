@@ -27,7 +27,7 @@ RUN cd AFL && make
 #ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output"]
 #CMD ["ruby", "/afl-ruby/test/lib/crashing_test_harness.rb", "@@"]
 
-CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"], "--", "ruby", "/afl-ruby/test.rb", "@@"]
+CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"], "--", "ruby", "/afl-ruby/crashing_test_harness.rb"]
 	
     
 
