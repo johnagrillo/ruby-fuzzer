@@ -15,7 +15,7 @@ ADD /afl-ruby /afl-ruby
 RUN mkdir -p /afl-ruby/output && \
     cd afl-ruby/lib/afl && \
     ruby ../../ext/afl_ext/extconf.rb && \
-    make install && \
+    make && \
     cd
 
 ## Add source code to the build stage.
