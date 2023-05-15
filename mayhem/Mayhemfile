@@ -3,5 +3,5 @@ duration: 90
 project: mayhem-examples
 target: crashing_test_harness
 cmds:
-  - cmd: /root/.rbenv/versions/3.2.2/bin/ruby  afl-ruby/test/lib/crashing_test_harness.rb
+  - cmd: /root/.rbenv/versions/3.2.2/bin/ruby  test @@
     afl: true

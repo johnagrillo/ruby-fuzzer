@@ -9,9 +9,13 @@ RUN ls && \
     make install && \
     cd
 
+ADD test.rb .
+
 ## Add source code to the build stage.
-ADD /AFL /AFL
-RUN cd AFL && make
+#ADD /AFL /AFL
+#RUN cd AFL && make
 
 ENTRYPOINT []
-CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "afl-ruby/input", "-o" ,"afl-ruby/output", "--","/root/.rbenv/versions/3.2.2/bin/ruby","afl-ruby/test/lib/crashing_test_harness.rb"]
+#CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "afl-ruby/input", "-o" ,"afl-ruby/output", "--","/root/.rbenv/versions/3.2.2/bin/ruby","afl-ruby/test/lib/crashing_test_harness.rb"]
+
+CMD ["/root/.rbenv/versions/3.2.2/bin/ruby", "test.rb","@@"]
