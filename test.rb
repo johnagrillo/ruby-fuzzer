@@ -15,7 +15,9 @@ out = realines(file)
 $stderr.puts file, out.size
 
 out.each do |a|
-  puts aaa
+  if a.to_i == 20
+    puts aaa
+  end
 end
 
 
