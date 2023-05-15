@@ -11,23 +11,23 @@ RUN apt-get update && \
 #RUN afl-gcc mayhemit.c -o /mayhemit
 #RUN mkdir /testsuite && echo seed > /testsuite/seed
 
-ADD /afl-ruby /afl-ruby
-RUN mkdir -p /afl-ruby/output && \
+RUN git clone https://github.com/richo/afl-ruby.git && \
+    mkdir -p /afl-ruby/output && \
     cd afl-ruby/lib/afl && \
     ruby ../../ext/afl_ext/extconf.rb && \
     make install && \
+    sleep 5 && \
+    ls && \
     cd
 
 ## Add source code to the build stage.
 ADD /AFL /AFL
 RUN cd AFL && make
 
-#ENTRYPOINT ["afl-fuzz", "-i", "/testsuite", "-o", "/out"]
+ENTRYPOINT []
+CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output", "--" ,"ruby", "/afl-ruby/test/lib/crashing_test_harness.rb"]
 
-#ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output"]
-#CMD ["ruby", "/afl-ruby/test/lib/crashing_test_harness.rb", "@@"]
 
-CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"], "--", "ruby", "/afl-ruby/test.rb", "@@"]
 	
     
 
