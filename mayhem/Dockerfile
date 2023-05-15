@@ -4,18 +4,28 @@ FROM --platform=linux/amd64 ubuntu:20.04 as builder
 
 #DEBIAN_FRONTEND=noninteractive apt-get install -y cmake clang && \
 ## Install build dependencies.
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y git ruby ruby-dev gcc make git
 
-#COPY mayhemit.c .
-#RUN afl-gcc mayhemit.c -o /mayhemit
-#RUN mkdir /testsuite && echo seed > /testsuite/seed
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git
+
+#
+# How to check for versions from ~/.rbenv/bin/rbenv install -l
+#
+RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash    
+RUN  ~/.rbenv/bin/rbenv install 3.2.2
+
+
+#RUN apt-get update && \
+#    DEBIAN_FRONTEND=noninteractive apt-get install -y gcc make
 
 ADD /afl-ruby /afl-ruby
 RUN mkdir -p /afl-ruby/output && \
     cd afl-ruby/lib/afl && \
-    ruby ../../ext/afl_ext/extconf.rb && \
+    /root/.rbenv/versions/3.2.2/bin/ruby ../../ext/afl_ext/extconf.rb && \
     make && \
+    make install && \
     cd
 
 ## Add source code to the build stage.
@@ -27,7 +37,7 @@ RUN cd AFL && make
 #ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/example/work/input", "-o" ,"/afl-ruby/test/output"]
 #CMD ["ruby", "/afl-ruby/test/lib/crashing_test_harness.rb", "@@"]
 
-CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"], "--", "ruby", "/afl-ruby/crashing_test_harness.rb"]
+CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "afl-ruby/input", "-o" ,"afl-ruby/output", "--","/root/.rbenv/versions/3.2.2/bin/ruby","afl-ruby/test/lib/crashing_test_harness.rb"]
 	
     
 

@@ -1,3 +1,4 @@
+$: << "../lib"
 require_relative('../../lib/afl')
 
 def function1
