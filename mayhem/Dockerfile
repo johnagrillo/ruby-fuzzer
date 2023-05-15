@@ -1,6 +1,5 @@
 FROM johnagrillo/ruby3
 
-
 ADD /afl-ruby /afl-ruby
 RUN ls && \
     mkdir -p /afl-ruby/output && \
