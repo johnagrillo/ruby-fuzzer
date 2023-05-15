@@ -4,4 +4,3 @@ project: mayhem-examples
 target: crashing_test_harness
 cmds:
   - cmd: /root/.rbenv/versions/3.2.2/bin/ruby  test.rb @@
-    afl: true
