@@ -5,3 +5,4 @@ target: crashing_test_harness
 cmds:
   - cmd: /root/.rbenv/versions/3.2.2/bin/ruby afl-ruby/test/lib/crashing_test_harness.rb
     afl: true
+    MFUZZ_DOCKER_ENTRYPOINT: "1"
