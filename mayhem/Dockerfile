@@ -1,27 +1,9 @@
-# Build Stage
+FROM johnagrillo/ruby3
 
-FROM --platform=linux/amd64 ubuntu:20.04 as builder
-
-#DEBIAN_FRONTEND=noninteractive apt-get install -y cmake clang && \
-## Install build dependencies.
-
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git
-
-#
-# How to check for versions from ~/.rbenv/bin/rbenv install -l
-#
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash    
-RUN  ~/.rbenv/bin/rbenv install 3.2.2
-
-
-#RUN apt-get update && \
-#    DEBIAN_FRONTEND=noninteractive apt-get install -y gcc make
 
 ADD /afl-ruby /afl-ruby
-RUN mkdir -p /afl-ruby/output && \
+RUN ls && \
+    mkdir -p /afl-ruby/output && \
     cd afl-ruby/lib/afl && \
     /root/.rbenv/versions/3.2.2/bin/ruby ../../ext/afl_ext/extconf.rb && \
     make && \
@@ -41,12 +23,3 @@ RUN cd AFL && make
 ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"]
 #CMD ["/AFL/afl-fuzz", "-m", "1000",  "-i", "afl-ruby/input", "-o" ,"afl-ruby/output", "--","/root/.rbenv/versions/3.2.2/bin/ruby","afl-ruby/test/lib/crashing_test_harness.rb"]
 CMD ["/root/.rbenv/versions/3.2.2/bin/ruby","afl-ruby/test/lib/crashing_test_harness.rb"]
-
-
-
-
-	
-    
-
-    
-
