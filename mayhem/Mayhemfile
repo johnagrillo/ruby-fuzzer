@@ -2,7 +2,8 @@ image: ruby
 duration: 90
 project: mayhem-examples
 target: crashing_test_harness
+env:
+  = MFUZZ_DOCKER_ENTRYPOINT: "1"
 cmds:
   - cmd: /root/.rbenv/versions/3.2.2/bin/ruby afl-ruby/test/lib/crashing_test_harness.rb
     afl: true
-    MFUZZ_DOCKER_ENTRYPOINT: "1"
