@@ -3,5 +3,5 @@ duration: 90
 project: mayhem-examples
 target: crashing_test_harness
 cmds:
-  - cmd: /AFL/afl-fuzz -m 10000 -i /afl-ruby/input  -o  /afl-ruby/output -- /root/.rbenv/versions/3.2.2/bin/ruby afl-ruby/test/lib/crashing_test_harness.rb
+  - cmd: /root/.rbenv/versions/3.2.2/bin/ruby  afl-ruby/test/lib/crashing_test_harness.rb
     afl: true
