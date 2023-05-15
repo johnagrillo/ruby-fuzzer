@@ -10,14 +10,12 @@ def function2
 end
 
 file = File.open(ARGV[0])
-input = file.read
+out = realines(file)
 
-if input == '7'
+$stderr.puts file, out.size
+
+out.each do |a|
   raise 'I hate the number 7'
-elsif input.ord % 2 == 0
-  function1
-else
-  function2
 end
 
 
