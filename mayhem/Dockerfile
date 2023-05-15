@@ -16,6 +16,6 @@ ADD /AFL /AFL
 RUN cd AFL && make
 
 ENTRYPOINT ["/AFL/afl-fuzz", "-m", "1000",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output"]
-cmd ["/root/.rbenv/versions/3.2.2/bin/ruby", "/afl-ruby/test/lib/crashing_test_harness.rb"]
+cmd ["--", "/root/.rbenv/versions/3.2.2/bin/ruby", "/afl-ruby/test/lib/crashing_test_harness.rb"]
 
 
