@@ -11,8 +11,7 @@ end
 input = input.read(1)
 $stderr.puts input
 
-raise 'I hate the number 7'
-
+exit(-1)
 
 if input == '7'
   raise 'I hate the number 7'
