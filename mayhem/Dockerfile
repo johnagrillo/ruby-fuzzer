@@ -16,6 +16,6 @@ ADD test.rb .
 #RUN cd AFL && make clean && make
 
 #ENTRYPOINT ["/AFL/afl-fuzz","-d",  "-m", "none",  "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output", "--"]
-cmd ["/root/.rbenv/versions/3.2.2/bin/ruby", "test.rb"]
+cmd ["/root/.rbenv/versions/3.2.2/bin/ruby", "test.rb", "/dev/random"]
 
 

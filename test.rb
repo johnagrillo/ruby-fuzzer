@@ -1,4 +1,4 @@
-input = FIle.open(ARGV[0])
+input = File.open(ARGV[0])
 def function1
   return 1
 end
