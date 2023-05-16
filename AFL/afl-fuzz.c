@@ -6880,10 +6880,11 @@ EXP_ST void check_binary(u8* fname) {
   u8* f_data;
   u32 f_len = 0;
 
-  ACTF("Validating target binary...");
+  ACTF("Validating target binary... %s",fname );
 
   if (strchr(fname, '/') || !(env_path = getenv("PATH"))) {
-
+    ACTF("Validating target binary here... %s",fname );
+  
     target_path = ck_strdup(fname);
     if (stat(target_path, &st) || !S_ISREG(st.st_mode) ||
         !(st.st_mode & 0111) || (f_len = st.st_size) < 4)
