@@ -12,6 +12,9 @@ end
 AFL.init
 AFL.with_exceptions_as_crashes do
   input = $stdin.read(1)
+
+  puts input.to_s
+  
   if input == '7'
     raise 'I hate the number 7'
   elsif input.ord % 2 == 0
