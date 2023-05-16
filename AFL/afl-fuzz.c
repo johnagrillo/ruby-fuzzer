@@ -2009,14 +2009,14 @@ EXP_ST void init_forkserver(char** argv) {
   int status;
   s32 rlen;
 
-  ACTF("Spinning up the fork server...";)
+  ACTF("Spinning up the fork server...");
 
   if (pipe(st_pipe) || pipe(ctl_pipe)) PFATAL("pipe() failed");
   ACTF("1");
   forksrv_pid = fork();
   ACTF("2");
   if (forksrv_pid < 0) PFATAL("fork() failed");
-  ACTF("2");
+  ACTF("3");
 
   
   if (!forksrv_pid) {
@@ -2032,7 +2032,7 @@ EXP_ST void init_forkserver(char** argv) {
       setrlimit(RLIMIT_NOFILE, &r); /* Ignore errors */
 
     }
-
+    ACTF("4");
     if (mem_limit) {
 
       r.rlim_max = r.rlim_cur = ((rlim_t)mem_limit) << 20;
@@ -2046,7 +2046,7 @@ EXP_ST void init_forkserver(char** argv) {
       /* This takes care of OpenBSD, which doesn't have RLIMIT_AS, but
          according to reliable sources, RLIMIT_DATA covers anonymous
          maps - so we should be getting good protection against OOM bugs. */
-
+      ACTF("5");
       setrlimit(RLIMIT_DATA, &r); /* Ignore errors */
 
 #endif /* ^RLIMIT_AS */
@@ -2065,7 +2065,8 @@ EXP_ST void init_forkserver(char** argv) {
        specified, stdin is /dev/null; otherwise, out_fd is cloned instead. */
 
     setsid();
-
+    ACTF("6");
+    
     dup2(dev_null_fd, 1);
     dup2(dev_null_fd, 2);
 
@@ -2079,7 +2080,7 @@ EXP_ST void init_forkserver(char** argv) {
       close(out_fd);
 
     }
-
+    ACTF("7");
     /* Set up control and status pipes, close the unneeded original fds. */
 
     if (dup2(ctl_pipe[0], FORKSRV_FD) < 0) PFATAL("dup2() failed");
@@ -2094,7 +2095,7 @@ EXP_ST void init_forkserver(char** argv) {
     close(dev_null_fd);
     close(dev_urandom_fd);
     close(fileno(plot_file));
-
+    ACTF("8");
     /* This should improve performance a bit, since it stops the linker from
        doing extra work post-fork(). */
 
@@ -2116,8 +2117,9 @@ EXP_ST void init_forkserver(char** argv) {
                            "allocator_may_return_null=1:"
                            "msan_track_origins=0", 0);
 
+    ACTF("9");
     execv(target_path, argv);
-
+    ACTF("10");
     /* Use a distinctive bitmap signature to tell the parent about execv()
        falling through. */
 
@@ -2127,7 +2129,7 @@ EXP_ST void init_forkserver(char** argv) {
   }
 
   /* Close the unneeded endpoints. */
-
+  ACTF("11");
   close(ctl_pipe[0]);
   close(st_pipe[1]);
 
@@ -2138,7 +2140,7 @@ EXP_ST void init_forkserver(char** argv) {
 
   it.it_value.tv_sec = ((exec_tmout * FORK_WAIT_MULT) / 1000);
   it.it_value.tv_usec = ((exec_tmout * FORK_WAIT_MULT) % 1000) * 1000;
-
+  ACTF("12");
   setitimer(ITIMER_REAL, &it, NULL);
 
   rlen = read(fsrv_st_fd, &status, 4);
@@ -2147,7 +2149,7 @@ EXP_ST void init_forkserver(char** argv) {
   it.it_value.tv_usec = 0;
 
   setitimer(ITIMER_REAL, &it, NULL);
-
+  ACTF("13");
   /* If we have a four-byte "hello" message from the server, we're all set.
      Otherwise, try to figure out what went wrong. */
 
@@ -2228,11 +2230,11 @@ EXP_ST void init_forkserver(char** argv) {
            DMS(mem_limit << 20), mem_limit - 1);
 
     }
-
+    ACTF("14");
     FATAL("Fork server crashed with signal %d", WTERMSIG(status));
 
   }
-
+  ACTF("15");
   if (*(u32*)trace_bits == EXEC_FAIL_SIG)
     FATAL("Unable to execute target application ('%s')", argv[0]);
 
