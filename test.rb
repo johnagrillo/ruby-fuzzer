@@ -10,6 +10,10 @@ end
 
 input = input.read(1)
 $stderr.puts input
+
+throw  'I hate the number 7'
+
+
 if input == '7'
   throw  'I hate the number 7'
 elsif input.ord % 2 == 0
