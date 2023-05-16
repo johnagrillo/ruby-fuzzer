@@ -1,9 +1,4 @@
-require_relative('lib/afl')
-
-
 input = FIle.open(ARGV[0])
-
-
 def function1
   return 1
 end

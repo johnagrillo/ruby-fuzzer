@@ -1,6 +1,4 @@
-print ARGV[0]
-puts
-
+input = FIle.open(ARGV[0])
 def function1
   return 1
 end
@@ -9,18 +7,15 @@ def function2
   return 2
 end
 
-file = File.open(ARGV[0])
-out = realines(file)
-
-$stderr.puts file, out.size
-
-out.each do |a|
-  if a.to_i == 20
-    puts aaa
-  end
+input = stdin.read(1)
+puts input
+if input == '7'
+  throw  'I hate the number 7'
+elsif input.ord % 2 == 0
+  function1
+else
+  function2
 end
-
-
-
+exit!(0)
 
 
