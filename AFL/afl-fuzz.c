@@ -7781,6 +7781,12 @@ int main(int argc, char** argv) {
   u8  exit_1 = !!getenv("AFL_BENCH_JUST_ONE");
   char** use_argv;
 
+  int ix = 0;
+  for(ix =0; ix < argc; ix++)
+  {
+    ACTF("%d %s\n", ix, argv[ix]);
+  }
+
   struct timeval tv;
   struct timezone tz;
 
