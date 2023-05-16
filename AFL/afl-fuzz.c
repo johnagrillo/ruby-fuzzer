@@ -2240,6 +2240,8 @@ EXP_ST void init_forkserver(char** argv) {
 
   if (mem_limit && mem_limit < 500 && uses_asan) {
 
+    
+
     SAYF("\n" cLRD "[-] " cRST
            "Hmm, looks like the target binary terminated before we could complete a\n"
            "    handshake with the injected code. Since it seems to be built with ASAN and\n"
@@ -7008,7 +7010,10 @@ EXP_ST void check_binary(u8* fname) {
   }
 
   if (memmem(f_data, f_len, "libasan.so", 10) ||
-      memmem(f_data, f_len, "__msan_init", 11)) uses_asan = 1;
+      memmem(f_data, f_len, "__msan_init", 11))
+  {
+    //uses_asan = 1;
+  }
 
   /* Detect persistent & deferred init signatures in the binary. */
 
