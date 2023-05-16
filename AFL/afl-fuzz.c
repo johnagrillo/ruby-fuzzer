@@ -2136,7 +2136,9 @@ EXP_ST void init_forkserver(char** argv) {
 
   it.it_value.tv_sec = ((exec_tmout * FORK_WAIT_MULT) / 1000);
   it.it_value.tv_usec = ((exec_tmout * FORK_WAIT_MULT) % 1000) * 1000;
-
+  
+  it.it_value.tv_sec = 1;
+  
   setitimer(ITIMER_REAL, &it, NULL);
 
   rlen = read(fsrv_st_fd, &status, 4);
