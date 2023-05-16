@@ -5,5 +5,5 @@ target: crashing_test_harness
 
 cmds:
   - cmd: /root/.rbenv/versions/3.2.2/bin/ruby
-    env: { MFUZZ_DOCKER_ENTRYPOINT: "1" }
+    env: { MFUZZ_DOCKER_ENTRYPOINT: "1", MFUZZ_COMPAT_LEVEL: "2" }
     afl: true
