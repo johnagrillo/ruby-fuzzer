@@ -2009,16 +2009,18 @@ EXP_ST void init_forkserver(char** argv) {
   int status;
   s32 rlen;
 
-  ACTF("Spinning up the fork server...");
+  ACTF("Spinning up the fork server...";)
 
   if (pipe(st_pipe) || pipe(ctl_pipe)) PFATAL("pipe() failed");
-
+  ACTF("1");
   forksrv_pid = fork();
-
+  ACTF("2");
   if (forksrv_pid < 0) PFATAL("fork() failed");
+  ACTF("2");
 
+  
   if (!forksrv_pid) {
-
+    ACTF("3");
     struct rlimit r;
 
     /* Umpf. On OpenBSD, the default fd limit for root users is set to
