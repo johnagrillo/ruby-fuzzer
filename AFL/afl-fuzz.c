@@ -6883,6 +6883,9 @@ EXP_ST void check_binary(u8* fname) {
   if (strchr(fname, '/') || !(env_path = getenv("PATH"))) {
 
     target_path = ck_strdup(fname);
+
+
+    
     if (stat(target_path, &st) || !S_ISREG(st.st_mode) ||
         !(st.st_mode & 0111) || (f_len = st.st_size) < 4)
       FATAL("Program '%s' not found or not executable", fname);
@@ -6908,6 +6911,8 @@ EXP_ST void check_binary(u8* fname) {
       else
         target_path = ck_strdup(fname);
 
+      ACTF("target_path %s\n", target_path);
+      
       ck_free(cur_elem);
 
       if (!stat(target_path, &st) && S_ISREG(st.st_mode) &&
@@ -8066,9 +8071,9 @@ int main(int argc, char** argv) {
 
   start_time = get_cur_time();
 
-  //  if (qemu_mode)
-  //  use_argv = get_qemu_argv(argv[0], argv + optind, argc - optind);
-  //else
+  if (qemu_mode)
+    use_argv = get_qemu_argv(argv[0], argv + optind, argc - optind);
+  else
     use_argv = argv + optind;
   
   ACTF("opt ind = %d", optind);
