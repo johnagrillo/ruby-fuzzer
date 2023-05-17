@@ -16,7 +16,7 @@ ADD test.rb .
 ADD /AFL /AFL
 RUN cd AFL && make clean && make
 
-ENTRYPOINT ["/AFL/afl-fuzz", "-t","2000",  "-m", "none", "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output", "--"]
+ENTRYPOINT ["/AFL/afl-fuzz", "-t","5000",  "-m", "none", "-i", "/afl-ruby/input", "-o" ,"/afl-ruby/output", "--"]
 cmd ["/root/.rbenv/versions/3.2.2/bin/ruby", "/afl-ruby/test/lib/crashing_test_harness.rb"]
 
 
