@@ -8066,9 +8066,9 @@ int main(int argc, char** argv) {
 
   start_time = get_cur_time();
 
-  if (qemu_mode)
-    use_argv = get_qemu_argv(argv[0], argv + optind, argc - optind);
-  else
+  //  if (qemu_mode)
+  //  use_argv = get_qemu_argv(argv[0], argv + optind, argc - optind);
+  //else
     use_argv = argv + optind;
   
   ACTF("opt ind = %d", optind);
