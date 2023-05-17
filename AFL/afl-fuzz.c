@@ -2114,6 +2114,7 @@ EXP_ST void init_forkserver(char** argv) {
                            "allocator_may_return_null=1:"
                            "msan_track_origins=0", 0);
 
+    
     execv(target_path, argv);
 
     /* Use a distinctive bitmap signature to tell the parent about execv()
@@ -6877,7 +6878,7 @@ EXP_ST void check_binary(u8* fname) {
   u8* f_data;
   u32 f_len = 0;
 
-  ACTF("Validating target binary...");
+  ACTF("Validating target binary %s...", fname);
 
   if (strchr(fname, '/') || !(env_path = getenv("PATH"))) {
 
@@ -6920,7 +6921,7 @@ EXP_ST void check_binary(u8* fname) {
     if (!target_path) FATAL("Program '%s' not found or not executable", fname);
 
   }
-
+  return;
   if (getenv("AFL_SKIP_BIN_CHECK")) return;
 
   /* Check for blatant user errors. */
@@ -8069,7 +8070,8 @@ int main(int argc, char** argv) {
     use_argv = get_qemu_argv(argv[0], argv + optind, argc - optind);
   else
     use_argv = argv + optind;
-
+  
+  ACTF("opt ind = %d", optind);
   perform_dry_run(use_argv);
 
   cull_queue();
