@@ -2148,12 +2148,13 @@ EXP_ST void init_forkserver(char** argv) {
 
   /* If we have a four-byte "hello" message from the server, we're all set.
      Otherwise, try to figure out what went wrong. */
-
+  ACTF("rlen %d\n" , rlen);
+  
   if (rlen == 4) {
     OKF("All right - fork server is up.");
     return;
   }
-
+  return;
   if (child_timed_out)
     FATAL("Timeout while initializing fork server (adjusting -t may help)");
 
