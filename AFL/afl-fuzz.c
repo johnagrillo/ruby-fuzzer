@@ -6926,6 +6926,7 @@ EXP_ST void check_binary(u8* fname) {
     if (!target_path) FATAL("Program '%s' not found or not executable", fname);
 
   }
+  ACTF("target_path %s\n", target_path);
   return;
   if (getenv("AFL_SKIP_BIN_CHECK")) return;
 
