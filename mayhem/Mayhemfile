@@ -4,5 +4,6 @@ project: mayhem-examples
 
 cmds:
   - cmd: /AFL/afl-fuzz -t 100 -m none -i /afl-ruby/input -o /afl-ruby/output -- /usr/local/bin/ruby /afl-ruby/test/lib/crashing_test_harness.rb @@
-#   env: { MFUZZ_DOCKER_ENTRYPOINT: "1", MFUZZ_COMPAT_LEVEL: "2" }
+    #env: { MFUZZ_DOCKER_ENTRYPOINT: "1", MFUZZ_COMPAT_LEVEL: "2" }
+    env: { MFUZZ_COMPAT_LEVEL: "1" }
     afl: true
