@@ -2155,7 +2155,6 @@ EXP_ST void init_forkserver(char** argv) {
     OKF("All right - fork server is up.");
     return;
   }
-  return;
   if (child_timed_out)
     FATAL("Timeout while initializing fork server (adjusting -t may help)");
 
