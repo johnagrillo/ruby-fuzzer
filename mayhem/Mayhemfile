@@ -3,6 +3,6 @@ duration: 90
 project: mayhem-examples
 
 cmds:
-  - cmd: /usr/local/bin/ruby 
-    env: { MFUZZ_DOCKER_ENTRYPOINT: "1", MFUZZ_COMPAT_LEVEL: "2" }
+  - cmd: /AFL/afl-fuzz -t 100 -m none -i /afl-ruby/input -o /afl-ruby/output /usr/local/bin/ruby /afl-ruby/test/lib/crashing_test_harness.rb @@
+#   env: { MFUZZ_DOCKER_ENTRYPOINT: "1", MFUZZ_COMPAT_LEVEL: "2" }
     afl: true
