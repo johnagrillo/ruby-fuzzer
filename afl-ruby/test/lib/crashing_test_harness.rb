@@ -10,8 +10,11 @@ def function2
 end
 
 AFL.init
+
+input = File.open(ARGV[0])
+
 AFL.with_exceptions_as_crashes do
-  input = $stdin.read(1)
+  input = input.read(1)
 
   puts input.to_s
   
